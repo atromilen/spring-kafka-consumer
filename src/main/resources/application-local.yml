@@ -1,0 +1,24 @@
+spring:
+  kafka:
+    consumer:
+      enable-auto-commit: false
+      group-id: spring-kafka-consumer
+      bootstrap-servers: localhost:29092
+      topic-name: messages-for-emailing
+      session-timeout-ms: 1500
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            type:
+              mapping: "cl.atromilen.springkafka.producer.event.Event:cl.atromilen.springkafka.consumer.event.Event"
+            value:
+              default:
+                type: "cl.atromilen.springkafka.consumer.event.Event"
+              type:
+                mapping: "cl.atromilen.springkafka.producer.event.Event:cl.atromilen.springkafka.consumer.event.Event"
+              trusted:
+                packages: "*"
+server:
+  port: 8082

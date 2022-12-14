@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'cl.atromilen'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.kafka:spring-kafka'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+
+    //TODO check what requires it
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    //Required for handling Java 8 datatype java.time.Instant (not supported by default in Jackson databind)
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
